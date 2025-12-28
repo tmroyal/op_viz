@@ -1,0 +1,21 @@
+{
+  "name": "osc-visualizer",
+  "version": "1.0.0",
+  "description": "p5.js OSC visualizer with TypeScript",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "osc": "^2.4.5",
+    "p5": "^1.11.2",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@types/p5": "^1.7.6",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  }
+}
