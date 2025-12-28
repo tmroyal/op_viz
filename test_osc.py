@@ -12,24 +12,6 @@ OSC_PORT = 9000
 
 client = udp_client.SimpleUDPClient(OSC_IP, OSC_PORT)
 
-osc_addresses = [
-    "/synth/freq",
-    "/synth/amp",
-    "/effect/reverb",
-    "/effect/delay",
-    "/control/pan",
-    "/control/volume",
-    "/sequencer/step",
-    "/trigger/note",
-    "/filter/cutoff",
-    "/filter/resonance",
-    "/lfo/rate",
-    "/envelope/attack",
-    "/envelope/decay",
-    "/modulation/depth",
-    "/harmony/chord",
-]
-
 print("=" * 50)
 print("OSC Random Message Sender")
 print("=" * 50)
@@ -41,27 +23,16 @@ print()
 try:
     counter = 0
     while True:
-        address = random.choice(osc_addresses)
+        num_pitches = random.randint(1, 6)
+        pitches = random.sample(range(12), num_pitches)
+        pitches.sort()
 
-        num_args = random.randint(1, 4)
-        args = []
-
-        for _ in range(num_args):
-            arg_type = random.choice(['float', 'int', 'string'])
-
-            if arg_type == 'float':
-                args.append(random.uniform(0.0, 1.0))
-            elif arg_type == 'int':
-                args.append(random.randint(0, 127))
-            else:
-                args.append(random.choice(['on', 'off', 'trigger', 'gate']))
-
-        client.send_message(address, args)
+        client.send_message("/pitches", pitches)
 
         counter += 1
-        print(f"[{counter:4d}] {address:25s} {args}")
+        print(f"[{counter:4d}] /pitches {pitches}")
 
-        delay = random.uniform(0.05, 0.3)
+        delay = random.uniform(0.5, 2.0)
         time.sleep(delay)
 
 except KeyboardInterrupt:

@@ -8,7 +8,7 @@ let visualizer: Visualizer;
 const sketch = (p: p5) => {
   p.setup = () => {
     p.createCanvas(p.windowWidth, p.windowHeight);
-    p.colorMode(p.HSB);
+    p.colorMode(p.HSB, 1);
     visualizer = new Visualizer(p);
 
     oscClient.onMessage((msg) => {
@@ -36,6 +36,7 @@ const connectBtn = document.getElementById('connectBtn') as HTMLButtonElement;
 const disconnectBtn = document.getElementById('disconnectBtn') as HTMLButtonElement;
 const wsPortInput = document.getElementById('wsPort') as HTMLInputElement;
 const statusDiv = document.getElementById('status') as HTMLDivElement;
+const controlsDiv = document.getElementById('controls') as HTMLDivElement;
 
 connectBtn.addEventListener('click', async () => {
   const port = parseInt(wsPortInput.value);
@@ -63,3 +64,9 @@ disconnectBtn.addEventListener('click', () => {
 function updateStatus(status: string): void {
   statusDiv.textContent = `Status: ${status}`;
 }
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'h' || e.key === 'H') {
+    controlsDiv.style.display = controlsDiv.style.display === 'none' ? 'block' : 'none';
+  }
+});
